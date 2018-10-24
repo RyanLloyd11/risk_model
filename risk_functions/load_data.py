@@ -4,6 +4,22 @@
 import pandas
 import os
 
+
+
+def csv2dict(root,file):
+	k=0
+	global fdict
+	with open(file, "r") as f:
+		file_list = f.read().split()
+		fdict= {}
+	for f in file_list:
+		A = os.path.join(root,f)	
+		fdict[f] = {f: pandas.read_csv(A,low_memory=False, error_bad_lines=False)}
+		k=k+1
+	return fdict
+
+# ---------------------------------
+
 # Define a function
 def loadais(root,file):
 # Fucntion to load in AIS data. RJL - 23/10/2018
@@ -12,7 +28,7 @@ def loadais(root,file):
 		file_list = f.read().split()
 	for f in file_list:
 		A = os.path.join(root,f)
-		globals()["data" + str(A[-16:-13])+ "_" + str(A[-12:-4])]=  pandas.read_csv(A,header=None,low_memory=False, error_bad_lines=False)
+		globals()["data" + str(A[-16:-13])+ "_" + str(A[-12:-4])] =  pandas.read_csv(A,header=None,low_memory=False, error_bad_lines=False)
 
 # --------------------------------
 
