@@ -1,1 +1,11 @@
 risk_data/
+working_dir/risk_model.gdb
+working_dir/*.shp
+working_dir/*.dbf
+working_dir/*.shx
+working_dir/*.sbn
+working_dir/*.sbx
+working_dir/*.prj
+working_dir/*.cpg
+working_dir/risk_model.gdb/*
+working_dir/*.xml

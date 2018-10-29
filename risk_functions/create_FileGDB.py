@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import arcpy
 import os
 
 def creategdb(FileGDB_path,FileGDB_name):
