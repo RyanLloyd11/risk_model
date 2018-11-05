@@ -9,8 +9,6 @@ import arcpy
 
 # Take list of csv files and create GDBshp fies for each one
 
-# ISSUES:
-# 26/10/18 - RJL: None
 
 def csv2shp(root,file,gdb_path,gdb_name):
 	csvpath1 = []
@@ -29,6 +27,7 @@ def csv2shp(root,file,gdb_path,gdb_name):
 			arcpy.FeatureClassToGeodatabase_conversion(pts[k]+".shp",gdb_path + gdb_name)
 		k=k+1
 	return pts
+
 
 # ---------------------------------
  
