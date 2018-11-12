@@ -23,6 +23,8 @@ def csv2shp(root,file,gdb_path,gdb_name):
 		pts.append(csvpath1[len(root):csvpath1.find(".")])
 		print (f + " >> "+ pts[k])
 		if not os.path.exists(gdb_path + "/" + pts[k]+".shp"):
+		#	print(csvpath1)
+		#	print(pts[k])
 			arcpy.management.XYTableToPoint(csvpath1,pts[k]+".shp","Longitude","Latitude")
 			arcpy.FeatureClassToGeodatabase_conversion(pts[k]+".shp",gdb_path + gdb_name)
 		k=k+1
