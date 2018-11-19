@@ -11,3 +11,4 @@ working_dir/risk_model.gdb/*
 working_dir/risk_model.gdb/a*
 working_dir/*.xml
 working_dir/*.lock
+working_dir/*.gdb

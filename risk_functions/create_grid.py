@@ -17,9 +17,9 @@ def tes_grid(root,gdb,traffic,continent, G_extent, sp_ref, SIZE, SHAPE):
 	extent = arcpy.Extent(G_extent[3], G_extent[2], G_extent[1], G_extent[0]) #{XMin}, {YMin}, {XMax}, {YMax}
 	GRIDS = []
 	for f in traffic:
-		OP_NAME = str(f)[len(str(root)):len(str(root))+3]+ str(SIZE) + "_grid_all"
-		OP_NAME2 = str(f)[len(str(root)):len(str(root))+3]+ str(SIZE) + "_grid_land"
-		OP_NAME3 = str(f)[len(str(root)):len(str(root))+3]+ str(SIZE) + "_grid_sea"
+		OP_NAME = str(f)[len(str(root)):len(str(root))+3]+ str(SIZE) + SHAPE[:2] + "_grid_all"
+		OP_NAME2 = str(f)[len(str(root)):len(str(root))+3]+ str(SIZE) + SHAPE[:2] + "_grid_land"
+		OP_NAME3 = str(f)[len(str(root)):len(str(root))+3]+ str(SIZE)+ SHAPE[:2] + "_grid_sea"
 		if not arcpy.Exists(root+gdb + "/" +OP_NAME):
 			# Generate 1st tess
 			arcpy.GenerateTessellation_management(root+gdb + "/" +OP_NAME, extent, SHAPE, str(SIZE) + " SquareKilometers", sp_ref)

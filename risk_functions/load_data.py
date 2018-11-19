@@ -14,6 +14,7 @@ def csv2shp(root,file,gdb_path,gdb_name):
 	csvpath1 = []
 	pts = []
 	k = 0
+	template ="inc_template"
 	arcpy.env.workspace = gdb_path + gdb_name
 	print("csv files converted to points:")
 	with open(file, "r") as f:
@@ -22,11 +23,32 @@ def csv2shp(root,file,gdb_path,gdb_name):
 		csvpath1 = os.path.join(root,f)
 		pts.append(csvpath1[len(root):csvpath1.find(".")])
 		print (f + " >> "+ pts[k])
-		if not os.path.exists(gdb_path + "/" + pts[k]+".shp"):
+	#	if not os.path.exists(gdb_path + "/" + pts[k]+".shp"):
+		if not arcpy.Exists(gdb_path + gdb_name + "/" + pts[k] + "_shp"): 
 		#	print(csvpath1)
 		#	print(pts[k])
-			arcpy.management.XYTableToPoint(csvpath1,pts[k]+".shp","Longitude","Latitude")
-			arcpy.FeatureClassToGeodatabase_conversion(pts[k]+".shp",gdb_path + gdb_name)
+			A = arcpy.GetCount_management(file)
+			if int(A[0]) > 1: 
+				arcpy.management.XYTableToPoint(csvpath1,pts[k]+".shp","Longitude","Latitude")
+				arcpy.FeatureClassToGeodatabase_conversion(pts[k]+".shp",gdb_path + gdb_name)
+			else:
+    				if not arcpy.Exists(gdb_path+gdb_name+"/" + template):
+        				arcpy.TableToTable_conversion (root+file, gdb_path+gdb_name+"/", template)
+    				if not arcpy.Exists(gdb_path + gdb_name+ pts[k] +"_shp"):
+        				arcpy.CreateFeatureclass_management (gdb_path + gdb_name, pts[k]+"_shp", "POINT")
+        				fields = arcpy.ListFields (gdb_path+gdb_name+"/"+template)
+        				A = fields[0:]
+        				for field in A:
+            					a = field.type
+            					if a == "String":
+                					a = "Text"
+                					arcpy.AddField_management (gdb_path + gdb_name+ pts[k]+"_shp", field.name,a)
+            					elif a == "OID":
+                					a = "Float"
+                					arcpy.AddField_management (gdb_path + gdb_name+ pts[k]+"_shp", field.name,a)
+            					else:
+               		 				arcpy.AddField_management (gdb_path + gdb_name+ pts[k]+"_shp", field.name,field.type)				
+
 		k=k+1
 	return pts
 

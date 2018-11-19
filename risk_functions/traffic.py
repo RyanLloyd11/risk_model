@@ -69,7 +69,7 @@ def ais2traffic(root,datafile_list,join_field,join_order,continent):
 # Carry MMSI number forward.
 
 # ISSUES:
-# 09/11/18 - RJL NoneType + float "/" issue.
+# 09/11/18 - RJL NoneType + float "/" issue. Add line in which converts float for continent to None .
 
 
 def traffic_density(inc_d, traffic,GRD, FileGDB_path, FileGDB_name):
